@@ -62,17 +62,19 @@ from (
 
 ![Link flairs in China subreddit](Flairs_in_China.png "Link flairs in China subreddit")
 
-![Link flairs in Shanghai subreddit](Flairs_in_shanghai.png "Link flairs in Shanghai subreddit")
+![Link flairs in Shanghai subreddit](Flairs_in_Shanghai.png "Link flairs in Shanghai subreddit")
 
 ![Link flairs in Taiwan subreddit](Flairs_in_Taiwan.png "Link flairs in Taiwan subreddit")
 
 - Unsupervised learning - topic modeling with LDA
 
-Dominant topics in each subreddit, by quarter:
-
 > Please note that labeling each topic is a manual process, thus it is very hard to be consistent across subreddits and quarters. As a result, you might find similar topics in different words.
 
   * China
+
+Subreddit China became a more vibrant community from 2016 to 2018 since wider topics were discussed. The most frequent topics were: Travel, VPN, WeChat, Politics and Foreigners in China.
+
+Detailed dominant topics by quarter:
 
 | Subreddit | Year | Quarter | Topics |
 | --------- | ---- | ------- | ------ |
@@ -90,6 +92,10 @@ Dominant topics in each subreddit, by quarter:
 | China | 2018 | 4 | China - Hong Kong - Taiwan, Huawei, Trump, Real Estate, VPN, WeChat |
 
   * Beijing
+
+2017 was the most active year for this subreddit. Most common topics here were: Travel, Work, VPN and Politics.
+
+Detailed dominant topics by quarter: 
 
 | Subreddit | Year | Quarter | Topics |
 | --------- | ---- | ------- | ------ |
