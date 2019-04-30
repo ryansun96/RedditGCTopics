@@ -60,11 +60,30 @@ from (
 
 > How to read the chart - some colors might look similar to human eyes. However, for most not-very-short bars, the order of them in the chart is the same as order of color blocks in the legend.
 
+  * China
+
 ![Link flairs in China subreddit](Flairs_in_China.png "Link flairs in China subreddit")
+
+We can see from the above figure that the proportion of each flair under
+subreddit China has been constant from 2016 to 2018. The most popular flairs in the subreddit of China were: VPN, Discussion, Life in China, Advice and News.
+
+  * Shanghai
 
 ![Link flairs in Shanghai subreddit](Flairs_in_Shanghai.png "Link flairs in Shanghai subreddit")
 
+We can see from the above figure that the proportion of each flair under
+subreddit Shanghai from 2016 to 2018 is not as constant as that of in the
+subreddit of China. Some flairs become more popular approaching 2018, such
+as Help, other flairs attracted less attention along the time, such as Question,
+City, and music. The percentage of flairs like Meet has been constant over
+years. The overall most popular flairs in the subreddit of Shanghai were:
+Question, Help, City, Meet, and News.  
+
+  * Taiwan
+
 ![Link flairs in Taiwan subreddit](Flairs_in_Taiwan.png "Link flairs in Taiwan subreddit")
+
+The flairs under Subreddit Taiwan is much more diverse comparing to the subreddit China and subreddit Shanghai. The proportion of each flair has been dynamically changing from 2016 to 2018. Generally speaking, the most popular flairs over time under the subreddit of Taiwan were: Question, Discussion, News, Travel, and Politics.
 
 - Unsupervised learning - topic modeling with LDA
 
@@ -112,6 +131,68 @@ Detailed dominant topics by quarter:
 | Beijing | 2018 | 3 | Attractions |
 | Beijing | 2018 | 4 | Attractions |
 
+  * Shanghai
+
+Subreddit Shanghai was more vigorous than the previous two subreddits. Top 5 topics from 2016 to 2018 were: Economy, Social life, WeChat, Travel, and Language.
+
+Detailed dominant topics by quarter: 
+
+| Subreddit | Year | Quarter | Topics |
+| --------- | ---- | ------- | ------ |
+| Shanghai | 2016 | 1 | Travel |
+| Shanghai | 2016 | 2 | Travel |
+| Shanghai | 2016 | 3 | Travel |
+| Shanghai | 2016 | 4 | Travel |
+| Shanghai | 2017 | 1 | Travel |
+| Shanghai | 2017 | 2 | Chinese SIM Card, Taiwan Food, VPN, Lifestyle, Hong Kong - China   |
+| Shanghai | 2017 | 3 | China - Hong Kong - Taiwan, VPN, Traffic, Flight, Visa |
+| Shanghai | 2017 | 4 | Work in China, VPN, Hong Kong - China, Traffic, Pollution |
+| Shanghai | 2018 | 1 | Travel |
+| Shanghai | 2018 | 2 | Travel, Work |
+| Shanghai | 2018 | 3 | Attractions |
+| Shanghai | 2018 | 4 | Attractions |
+
+  * Hong Kong
+
+"China - Hong Kong (relation)" appeared in almost every quarter. Other than this, Work, Economy, Shopping and Language were also hot topics from 2016 to 2018 under subreddit Hong Kong.
+
+Detailed dominant topics by quarter: 
+
+| Subreddit | Year | Quarter | Topics |
+| --------- | ---- | ------- | ------ |
+| Hong Kong | 2016 | 1 | Food, Work, Language, Education, China - Hong Kong, MTR  |
+| Hong Kong | 2016 | 2 | Lifestyle, Language, China - Hong Kong, Shopping, Work, Culture, Entertainment |
+| Hong Kong | 2016 | 3 | Travel |
+| Hong Kong | 2016 | 4 | Travel |
+| Hong Kong | 2017 | 1 | Work, Local Life, Economy, Policy |
+| Hong Kong | 2017 | 2 | Work, China - Hong Kong, Economy, Shopping |
+| Hong Kong | 2017 | 3 | China - Hong Kong, Student - Government |
+| Hong Kong | 2017 | 4 | China - Hong Kong, Money, Food |
+| Hong Kong | 2018 | 1 | Travel |
+| Hong Kong | 2018 | 2 | Travel, Work |
+| Hong Kong | 2018 | 3 | Attractions |
+| Hong Kong | 2018 | 4 | Attractions |
+
+  * Taiwan
+
+Just like subreddit Hong Kong, topic China - Taiwan (relation) appeared almost in every quarter from 2016 to 2018. Besides, Night Market, Politics, Language, Food, and Taipei were also frequently discussed under subreddit Taiwan. This subreddit was the most vigorous among all five in respect to diversity of topics.
+
+Detailed dominant topics by quarter: 
+
+| Subreddit | Year | Quarter | Topics |
+| --------- | ---- | ------- | ------ |
+| Taiwan | 2016 | 1 | Travel |
+| Taiwan | 2016 | 2 | Travel |
+| Taiwan | 2016 | 3 | Travel |
+| Taiwan | 2016 | 4 | Travel |
+| Taiwan | 2017 | 1 | Travel |
+| Taiwan | 2017 | 2 | Chinese SIM Card, Taiwan Food, VPN, Lifestyle, Hong Kong - China   |
+| Taiwan | 2017 | 3 | China - Hong Kong - Taiwan, VPN, Traffic, Flight, Visa |
+| Taiwan | 2017 | 4 | Work in China, VPN, Hong Kong - China, Traffic, Pollution |
+| Taiwan | 2018 | 1 | Travel |
+| Taiwan | 2018 | 2 | Travel, Work |
+| Taiwan | 2018 | 3 | Attractions |
+| Taiwan | 2018 | 4 | Attractions |
 
 ## Conclusion and discussion
 
