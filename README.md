@@ -10,6 +10,17 @@ Authors of this project are international (Chinese) students in the US, interest
 
 Some posts have been tagged by their OP with "flairs", which is Reddit's way of saying tags. We use those as training/testing dataset to train a Naive Bayes classifier, then use it to tag untagged posts. Choice of using Naive Bayes, rather than Support Vector Machine or other classifiers, is due to one author being a firm proponent of Bayesian statistics.
 
+There was discussion within the group, on whether a single model should be trained on all subreddits, or separate models for each subreddit. Argument for the first approach included:
+
+  1. More data could improve model accuracy;
+  2. It should be safe to assume that different subreddits had similar language pattern for the same topic.
+
+Argument for the second approach included:
+
+  1. Different subreddits used different tags for similar topics. Modeling them altogether would force the model to differentiate among those, which made no sense.
+
+We proceeded with the second approach, separate models for each subreddit.
+
 - Unsupervised learning - topic modeling with LDA
 
 To quote Spark's [documentation](https://spark.apache.org/docs/2.2.0/mllib-clustering.html#latent-dirichlet-allocation-lda), Latent Dirichlet Allocation (**LDA**) is a topic model which infers topics from a collection of text documents. LDA can be thought of as a clustering algorithm as follows:
@@ -19,7 +30,7 @@ To quote Spark's [documentation](https://spark.apache.org/docs/2.2.0/mllib-clust
     - Rather than estimating a clustering using a traditional distance, LDA uses a function based on a statistical model of how text documents are generated.
 
 > ### Why still use LDA when we have tagged the posts?
-> We want to have our own understanding of the topics, not necessarilly limited to existing flairs. In addition, we find flairs not an **MECE** (Mutually Exclusive, Collectively Exhaustive) representative of topics.
+> We want to have our own understanding of the topics, not necessarilly limited to existing flairs. In addition, we find flairs not an **MECE** (Mutually Exclusive, Collectively Exhaustive) representative of topics, not to mention that not all subreddits support flairs.
 
 ## Technologies and reasons of choice
 
@@ -27,8 +38,9 @@ To quote Spark's [documentation](https://spark.apache.org/docs/2.2.0/mllib-clust
   - Data Factory, for ETL `ndjson` into SQL Database. This tool has an easy-to-use GUI to compose pipelines, much like SQL Server Integration Service (**SSIS**). It is *hard* to debug, however.
   - SQL Database. We choose to use traditional relational database management system (**RDBMS**) because we need to *join* posts with comments, as well as filtering on various columns. There is no obvious advantage of using a document database (e.g. MongoDB), only obvious *disadvantages*.
   
-- Apache Spark (on Azure HDInsight). 
-- NLTK (Natural Language ToolKit). There are many fancy NLP
+- Apache Spark (on Azure HDInsight). Apache Spark provides various machine learning algorithms out-of-the-box. It also scales well for compute-and-memory-intensive tasks, like LDA (mentioned below).
+
+- NLTK (Natural Language ToolKit). There are many fancy NLP packages, however NLTK still does a good job cleaning and tokenizing the corpus.
 
 ## Data and pre-processing
 
@@ -64,26 +76,19 @@ from (
 
 ![Link flairs in China subreddit](Flairs_in_China.png "Link flairs in China subreddit")
 
-We can see from the above figure that the proportion of each flair under
-subreddit China has been constant from 2016 to 2018. The most popular flairs in the subreddit of China were: VPN, Discussion, Life in China, Advice and News.
+The proportion of each flair under subreddit China has been consistent from 2016 to 2018. The most popular flairs in subreddit China were: VPN, Discussion, Life in China, Advice and News.
 
   * Shanghai
 
 ![Link flairs in Shanghai subreddit](Flairs_in_Shanghai.png "Link flairs in Shanghai subreddit")
 
-We can see from the above figure that the proportion of each flair under
-subreddit Shanghai from 2016 to 2018 is not as constant as that of in the
-subreddit of China. Some flairs become more popular approaching 2018, such
-as Help, other flairs attracted less attention along the time, such as Question,
-City, and music. The percentage of flairs like Meet has been constant over
-years. The overall most popular flairs in the subreddit of Shanghai were:
-Question, Help, City, Meet, and News.  
+Proportion of each flair under subreddit Shanghai from 2016 to 2018 is not as consistent as that in subreddit China. Some flairs become more popular in 2018, such as Help, while other flairs attracted less attention, such as Question, City, and Music. Share of flairs like Meet has been stable over years. Overall, most popular flairs in subreddit Shanghai were: Question, Help, City, Meet, and News.  
 
   * Taiwan
 
 ![Link flairs in Taiwan subreddit](Flairs_in_Taiwan.png "Link flairs in Taiwan subreddit")
 
-The flairs under Subreddit Taiwan is much more diverse comparing to the subreddit China and subreddit Shanghai. The proportion of each flair has been dynamically changing from 2016 to 2018. Generally speaking, the most popular flairs over time under the subreddit of Taiwan were: Question, Discussion, News, Travel, and Politics.
+Flairs under subreddit Taiwan is much more diverse compared to China and Shanghai. Share of each flair has been dynamically changing from 2016 to 2018. Overall, most popular flairs in Taiwan were: Question, Discussion, News, Travel, and Politics.
 
 - Unsupervised learning - topic modeling with LDA
 
@@ -139,18 +144,18 @@ Detailed dominant topics by quarter:
 
 | Subreddit | Year | Quarter | Topics |
 | --------- | ---- | ------- | ------ |
-| Shanghai | 2016 | 1 | Travel |
-| Shanghai | 2016 | 2 | Travel |
-| Shanghai | 2016 | 3 | Travel |
-| Shanghai | 2016 | 4 | Travel |
-| Shanghai | 2017 | 1 | Travel |
-| Shanghai | 2017 | 2 | Chinese SIM Card, Taiwan Food, VPN, Lifestyle, Hong Kong - China   |
-| Shanghai | 2017 | 3 | China - Hong Kong - Taiwan, VPN, Traffic, Flight, Visa |
-| Shanghai | 2017 | 4 | Work in China, VPN, Hong Kong - China, Traffic, Pollution |
-| Shanghai | 2018 | 1 | Travel |
-| Shanghai | 2018 | 2 | Travel, Work |
-| Shanghai | 2018 | 3 | Attractions |
-| Shanghai | 2018 | 4 | Attractions |
+| Shanghai | 2016 | 1 | Work, Safety, Economy, Language |
+| Shanghai | 2016 | 2 | Food, City Life, Finance, Language, Travel |
+| Shanghai | 2016 | 3 | Travel, Social Life, Language, Economy, Housing |
+| Shanghai | 2016 | 4 | Lifestyle, Shopping, Work, Economy |
+| Shanghai | 2017 | 1 | Shopping, Travel, Lifestyle |
+| Shanghai | 2017 | 2 | Social Life, Night Life   |
+| Shanghai | 2017 | 3 | Social Life, WeChat, Economy, Work, Travel |
+| Shanghai | 2017 | 4 | Food, Attractions, WeChat |
+| Shanghai | 2018 | 1 | Language, WeChat, Shopping, Food |
+| Shanghai | 2018 | 2 | Language, Food, Social Life, Shopping |
+| Shanghai | 2018 | 3 | Food, WeChat, Work |
+| Shanghai | 2018 | 4 | City Life, Food, Attractions, WeChat |
 
   * Hong Kong
 
@@ -167,11 +172,11 @@ Detailed dominant topics by quarter:
 | Hong Kong | 2017 | 1 | Work, Local Life, Economy, Policy |
 | Hong Kong | 2017 | 2 | Work, China - Hong Kong, Economy, Shopping |
 | Hong Kong | 2017 | 3 | China - Hong Kong, Student - Government |
-| Hong Kong | 2017 | 4 | China - Hong Kong, Money, Food |
-| Hong Kong | 2018 | 1 | Travel |
-| Hong Kong | 2018 | 2 | Travel, Work |
-| Hong Kong | 2018 | 3 | Attractions |
-| Hong Kong | 2018 | 4 | Attractions |
+| Hong Kong | 2017 | 4 | China - Hong Kong, Economy, Food |
+| Hong Kong | 2018 | 1 | Language, Students, Food, Attractions, Social Life |
+| Hong Kong | 2018 | 2 |  Work, Economy, China - Hong Kong |
+| Hong Kong | 2018 | 3 | Typhoon, Work, China - Hong Kong, Language |
+| Hong Kong | 2018 | 4 | Social Life, Chinese, Transportation |
 
   * Taiwan
 
@@ -181,21 +186,25 @@ Detailed dominant topics by quarter:
 
 | Subreddit | Year | Quarter | Topics |
 | --------- | ---- | ------- | ------ |
-| Taiwan | 2016 | 1 | Travel |
-| Taiwan | 2016 | 2 | Travel |
-| Taiwan | 2016 | 3 | Travel |
-| Taiwan | 2016 | 4 | Travel |
-| Taiwan | 2017 | 1 | Travel |
-| Taiwan | 2017 | 2 | Chinese SIM Card, Taiwan Food, VPN, Lifestyle, Hong Kong - China   |
-| Taiwan | 2017 | 3 | China - Hong Kong - Taiwan, VPN, Traffic, Flight, Visa |
-| Taiwan | 2017 | 4 | Work in China, VPN, Hong Kong - China, Traffic, Pollution |
-| Taiwan | 2018 | 1 | Travel |
-| Taiwan | 2018 | 2 | Travel, Work |
-| Taiwan | 2018 | 3 | Attractions |
-| Taiwan | 2018 | 4 | Attractions |
+| Taiwan | 2016 | 1 | Night Market, China - Taiwan, Chinese Tourist, Lifestyle, Food, Politics |
+| Taiwan | 2016 | 2 | Travel, China - Taiwan - US, Economy, Language |
+| Taiwan | 2016 | 3 | Travel, Politics, Restaurant, Taipei |
+| Taiwan | 2016 | 4 | Travel, Finance, Taipei, China - Taiwan - US|
+| Taiwan | 2017 | 1 | Travel, Night Market, China - Taiwan - Japan, China - Taiwan, Taichung, Transportation|
+| Taiwan | 2017 | 2 | Taiwan - US, Phone, Kaoshiung, Food, Language |
+| Taiwan | 2017 | 3 | Language, Food, Taipei, Work |
+| Taiwan | 2017 | 4 | Language, Night Market, China - Taiwan, Taipei |
+| Taiwan | 2018 | 1 | Food, Language, China - Taiwan, Work, Taipei, Law |
+| Taiwan | 2018 | 2 | Culture, China - Taiwan, Student|
+| Taiwan | 2018 | 3 | Work, Mandarin, Politics, China - Taiwan, School, Students |
+| Taiwan | 2018 | 4 | Food, Politics, China - Taiwan, Election, International Politics |
 
 ## Conclusion and discussion
 
+Coming from a Chinese background, we confirm that topics on reddit are a fair representation of everyday life in China. For example, VPN is frequently mentioned under subreddit China and Beijing, whereas it is not as popular under subreddit Hongkong and Taiwan, where the Internet is not censored. Also, we are not surprised to see more discussion about politics in Beijing, whereas people talk about economy in Shanghai, which agrees with people's impression that Beijing is the political center, and Shanghai is the economic center of China.
+
 ## Contact
 
-> Mention of a brand, product, or service does not suggest any endorsement by the authors.
+Code and technical details can be found in the companion repository of this page, under `master` branch. Questions and discussions can be raised using GitHub's issue system. 
+
+> Disclaimer: Mention of a brand, product, or service does not suggest any endorsement by the authors.
