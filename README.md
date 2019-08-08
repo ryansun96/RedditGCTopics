@@ -201,7 +201,9 @@ Detailed dominant topics by quarter:
 
 ## Conclusion and discussion
 
-Coming from a Chinese background, we confirm that topics on reddit are a fair representation of everyday life in China. For example, VPN is frequently mentioned under subreddit China and Beijing, whereas it is not as popular under subreddit Hongkong and Taiwan, where the Internet is not censored. Also, we are not surprised to see more discussion about politics in Beijing, whereas people talk about economy in Shanghai, which agrees with people's impression that Beijing is the political center, and Shanghai is the economic center of China.
+Coming from a Chinese background, we affirm that topics on reddit are a fair representation of everyday life in China. For example, VPN is frequently mentioned under subreddit China and Beijing, whereas it is not as popular under subreddit Hongkong and Taiwan, where the Internet is not censored. Also, we are not surprised to see more discussion about politics in Beijing, whereas people talk about economy in Shanghai, which agrees with people's impression that Beijing is the political center, and Shanghai is the economic center of China.
+
+The result has a few possible use cases. For example, foreigners interested in choosing from those cities their primary work/live location can get a taste of each city's culture, and make informed decisions. Advertisers can also benefit from the result to make the most efficient allocation of advertising money.
 
 ## Contact
 
